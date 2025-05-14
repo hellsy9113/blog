@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vivid Advanced Blog with Rich Features</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container header-content">
+      <h1 class="site-title">Vivid Advanced Blog</h1>
+      <nav class="nav-actions" role="navigation" aria-label="Main navigation">
+        <button id="darkModeToggle" class="btn btn-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙 Dark Mode</button>
+        <button id="addPostBtn" class="btn btn-primary" aria-haspopup="dialog">+ New Post</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" role="main" tabindex="-1">
+    <section id="postsSection" aria-label="Blog posts list" tabindex="0">
+      <div class="search-sort-bar">
+        <input
+          type="search"
+          id="searchInput"
+          placeholder="Search posts by title or content..."
+          aria-label="Search posts"
+          autocomplete="off"
+          spellcheck="false"
+          autocorrect="off"
+        />
+
+        <select id="categoryFilter" aria-label="Filter posts by category">
+          <option value="all">All Categories</option>
+        </select>
+
+        <select id="sortOrder" aria-label="Sort posts">
+          <option value="desc">Newest First</option>
+          <option value="asc">Oldest First</option>
+        </select>
+      </div>
+
+      <ul id="postsList" class="posts-list" role="list" aria-live="polite" aria-busy="false" aria-relevant="all"></ul>
+      <p id="noPostsMsg" class="no-posts-message" hidden>No posts found. Create some!</p>
+
+      <nav class="pagination-container" aria-label="Post pagination">
+        <button id="prevPageBtn" class="btn btn-secondary" aria-label="Previous page" disabled>← Prev</button>
+        <span id="paginationInfo" aria-live="polite" aria-atomic="true"></span>
+        <button id="nextPageBtn" class="btn btn-secondary" aria-label="Next page" disabled>Next →</button>
+      </nav>
+    </section>
+
+    <article id="postDetail" class="post-detail" aria-live="polite" aria-label="Post details" tabindex="-1" hidden>
+      <button id="backBtn" class="btn btn-back" aria-label="Back to posts list" title="Back to posts list">← Back</button>
+      <h2 id="detailTitle" class="detail-title"></h2>
+      <p id="detailDate" class="detail-date"></p>
+      <div id="detailCategories" class="detail-categories" aria-label="Categories"></div>
+      <div id="detailContent" class="detail-content"></div>
+    </article>
+
+    <button id="scrollTopBtn" title="Scroll to top" aria-label="Scroll to top" class="btn-scrollTop" hidden>↑</button>
+  </main>
+
+  <!-- Modal for creating/editing blog posts -->
+  <div
+    id="modal"
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+    aria-hidden="true"
+    hidden
+  >
+    <div class="modal-content" role="document">
+      <header class="modal-header">
+        <h3 id="modalTitle">Add New Post</h3>
+        <button id="closeModalBtn" class="btn-close" aria-label="Close modal">×</button>
+      </header>
+      <form id="postForm" novalidate>
+        <label for="postTitle">Title</label>
+        <input
+          type="text"
+          id="postTitle"
+          name="title"
+          required
+          maxlength="120"
+          autocomplete="off"
+          placeholder="Enter post title"
+          aria-describedby="titleHelp"
+        />
+        <small id="titleHelp" class="input-help-text"
+          >Max 120 characters. Minimum 3 characters.</small
+        >
+
+        <label for="postDate">Date</label>
+        <input type="date" id="postDate" name="date" required aria-describedby="dateHelp"/>
+        <small id="dateHelp" class="input-help-text">Select the date of the post.</small>
+
+        <label for="postCategories">Categories (comma separated)</label>
+        <input
+          type="text"
+          id="postCategories"
+          name="categories"
+          autocomplete="off"
+          placeholder="e.g. JavaScript, Tech"
+          aria-describedby="catHelp"
+        />
+        <small id="catHelp" class="input-help-text"
+          >Separate categories with commas.</small
+        >
+
+        <label for="postContent">Content</label>
+        <div id="richTextEditor" class="rich-text-editor" contenteditable="true" aria-label="Post content editor" tabindex="0"></div>
+        <textarea id="postContent" name="content" required style="display:none;"></textarea>
+        <small class="input-help-text">Supports basic formatting: bold, italic, lists.</small>
+
+        <div class="rich-text-toolbar" role="toolbar" aria-label="Text formatting">
+          <button type="button" data-command="bold" title="Bold (Ctrl+B)" aria-label="Bold (Ctrl+B)">
+            <strong>B</strong>
+          </button>
+          <button type="button" data-command="italic" title="Italic (Ctrl+I)" aria-label="Italic (Ctrl+I)">
+            <em>I</em>
+          </button>
+          <button type="button" data-command="insertUnorderedList" title="Unordered List (Ctrl+U)" aria-label="Unordered List (Ctrl+U)">
+            • List
+          </button>
+          <button type="button" data-command="insertOrderedList" title="Ordered List" aria-label="Ordered List">
+            1. List
+          </button>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelBtn" class="btn btn-secondary">Cancel</button>
+          <button type="submit" id="savePostBtn" class="btn btn-primary">Save Post</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>© 2024 Vivid Advanced Blog. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
